@@ -1,34 +1,37 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Card from './Components/Card/Card';
+import Collection from './Components/Collection/Collection';
+import Sidebar from './Components/Sidebar/Sidebar';
 // import Header from './Components/Header/Header';
 
 
 
 function App() {
 
-  const[entries, setEntries] = useState([]);
+  const[collections, setCollections] = useState([]);
 
-  async function makeGetRequest(){
+  async function getAllCollections(){
     try{
       let response = await axios.get('http://127.0.0.1:8000/api/collections/')
-      console.log('response.data', response.data)
-      setEntries(response.data)
+      
+      setCollections(response.data)
     }
     catch(err) {
       console.log(err.message)
     }
   }
-
+  
+  
   useEffect(() => {
-    makeGetRequest();
+    getAllCollections();
   }, [])
-
+  
 
   return (
     <div>
       <div>
-        <Card props = {entries}/>
+        <Sidebar collections = {collections}/>
+        
       </div>
     </div>
   );
