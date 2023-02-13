@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import Card from './Components/Card/Card';
+// import Header from './Components/Header/Header';
+
+
 
 function App() {
+
+  const[entries, setEntries] = useState([]);
+
+  async function makeGetRequest(){
+    try{
+      let response = await axios.get('http://127.0.0.1:8000/api/collections/')
+      console.log('response.data', response.data)
+      setEntries(response.data)
+    }
+    catch(err) {
+      console.log(err.message)
+    }
+  }
+
+  useEffect(() => {
+    makeGetRequest();
+  }, [])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <Card props = {entries}/>
+      </div>
     </div>
   );
 }
