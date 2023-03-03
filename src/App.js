@@ -1,14 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Collection from './Components/Collection/Collection';
+// import Collection from './Components/Collection/Collection';
 import Sidebar from './Components/Sidebar/Sidebar';
 // import Header from './Components/Header/Header';
-
+import NewCard from './Components/NewCard/NewCard';
 
 
 function App() {
 
   const[collections, setCollections] = useState([]);
+  const[cards,setCards] = useState([])
 
   async function getAllCollections(){
     try{
@@ -22,6 +23,7 @@ function App() {
   }
   
   
+
   useEffect(() => {
     getAllCollections();
   }, [])
@@ -31,6 +33,7 @@ function App() {
     <div>
       <div>
         <Sidebar collections = {collections}/>
+        <NewCard/>
         
       </div>
     </div>
